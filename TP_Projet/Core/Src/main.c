@@ -58,14 +58,16 @@ const uint8_t started[]=
 		"\r\n";
 const uint8_t newline[]="\r\n";
 const uint8_t cmdNotFound[]="Command not found\r\n";
-const uint8_t help[] = "Available commands: help, pinout, start, stop\r\n";
+const uint8_t help[] = "Available commands: help, pinout, start, stop, speed\r\n";
 const uint8_t pinout[] = "Pins used: PA0, PA1, PB3\r\n";
 const uint8_t powerOn[] = "Power ON\r\n";
 const uint8_t powerOff[] = "Power OFF\r\n";
+const uint8_t speed_msg[] = "Speed : \r\n";
 uint32_t uartRxReceived;
 uint8_t uartRxBuffer[UART_RX_BUFFER_SIZE];
 uint8_t uartTxBuffer[UART_TX_BUFFER_SIZE];
 char Etat;
+char Speed_buf[5];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -245,6 +247,27 @@ void processCommand(char *cmd)
 		HAL_TIMEx_PWMN_Stop(&htim1, TIM_CHANNEL_2);
 		Etat = "Stop";
 	}
+	else if(Etat = "Start"){
+			strncpy(Speed_buf, cmd, 5);
+			if(strcmp(Speed_buf,"speed") == 0){
+				char speed_value;
+				strncpy(speed_value, cmd+(strlen(cmd)-6), 6);
+				int speed_int = atoi(speed_value);
+				if(speed_int <= 100){
+					__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, speed_int/2);
+					__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, speed_int/2);
+					char sp = speed_value;
+					HAL_UART_Transmit(&huart2, sp, sizeof(sp) - 1, HAL_MAX_DELAY);
+				}
+				else{
+					__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 50);
+					__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 50);
+					char msg[] = "Max Speed";
+					HAL_UART_Transmit(&huart2, msg, sizeof(msg), HAL_MAX_DELAY);
+				}
+			}
+		}
+
 	else {
 		HAL_UART_Transmit(&huart2, cmdNotFound, sizeof(cmdNotFound) - 1, HAL_MAX_DELAY);
 	}
