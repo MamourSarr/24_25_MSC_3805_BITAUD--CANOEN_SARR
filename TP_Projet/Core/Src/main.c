@@ -64,11 +64,13 @@ const uint8_t pinout[] = "Pins used: PA0, PA1, PB3\r\n";
 const uint8_t powerOn[] = "Power ON\r\n";
 const uint8_t powerOff[] = "Power OFF\r\n";
 const uint8_t speed_msg[] = "Speed : \r\n";
+const uint8_t ADC_msg[] = "Current_value : \r\n";
 uint32_t uartRxReceived;
 uint8_t uartRxBuffer[UART_RX_BUFFER_SIZE];
 uint8_t uartTxBuffer[UART_TX_BUFFER_SIZE];
 char Etat;
 char Speed_buf[5];
+uint8_t former_speed = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -232,6 +234,8 @@ void processCommand(char *cmd)
 		HAL_UART_Transmit(&huart2, pinout, sizeof(pinout) - 1, HAL_MAX_DELAY);
 	}
 	else if (strcmp(cmd, "start") == 0) {
+		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 512);
+		__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 512);
 		HAL_UART_Transmit(&huart2, powerOn, sizeof(powerOn) - 1, HAL_MAX_DELAY);
 		HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 		HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
@@ -246,6 +250,9 @@ void processCommand(char *cmd)
 		HAL_TIM_PWM_Stop(&htim1, TIM_CHANNEL_2);
 		HAL_TIMEx_PWMN_Stop(&htim1, TIM_CHANNEL_2);
 
+		former_speed = 0;
+
+
 	}
 	else if (strncmp(cmd, "speed", 5) == 0) {
 
@@ -258,17 +265,54 @@ void processCommand(char *cmd)
 			HAL_UART_Transmit(&huart2, (uint8_t *)maxSpeedMsg, sizeof(maxSpeedMsg) - 1, HAL_MAX_DELAY);
 		}
 
+
+
 		int i = 0;
 		uint32_t pwm_value = (speed_value * MAX_SPEED) / 100;
-		for(i = 0; i < pwm_value; i++){
-			__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, i);
-			__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 1024- i);
-			HAL_Delay(10);
+		uint32_t former_pwm_value = (former_speed * MAX_SPEED) / 100;
+		if(pwm_value >= former_pwm_value){
+			for(i = former_pwm_value; i < pwm_value; i++){
+				__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, i);
+				__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 1024- i);
+				HAL_Delay(10);
+			}
 		}
+		else{
+
+			for(i = former_pwm_value; i > pwm_value; i--){
+				__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, i);
+				__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 1024- i);
+				HAL_Delay(10);
+			}
+		}
+		former_speed = speed_value;
 		//Afficher la vitesse actuelle
 		char speedMsg[32];
 		snprintf(speedMsg, sizeof(speedMsg), "Speed : %d\r\n", speed_value);
 		HAL_UART_Transmit(&huart2, (uint8_t *)speedMsg, strlen(speedMsg), HAL_MAX_DELAY);
+	}
+
+	else if (strcmp(cmd, "ADC") == 0) {
+			HAL_Delay(1000);
+			HAL_ADC_Start(&hadc1);
+			HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+			uint32_t ADC_value = HAL_ADC_GetValue(&hadc1);
+			HAL_Delay(10);
+			char buffer_adc[9];
+
+			uint8_t sensivity = 50;
+
+			uint8_t V_offset = 5;
+
+			uint8_t I_current = ((ADC_value*3300/4096) - V_offset) / sensivity ;
+
+			uint8_t taille = snprintf(buffer_adc, sizeof(buffer_adc), "%d\r\n", ADC_value);
+
+
+			// Envoyer la valeur via UART, en castant le buffer en uint8_t*
+			HAL_UART_Transmit(&huart2, (uint8_t*)buffer_adc, taille, 100);
+
+
 	}
 
 
