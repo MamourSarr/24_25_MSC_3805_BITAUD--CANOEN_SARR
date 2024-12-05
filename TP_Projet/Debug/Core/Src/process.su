@@ -1,0 +1,4 @@
+../Core/Src/process.c:52:6:HAL_UART_RxCpltCallback	16	static
+../Core/Src/process.c:69:6:shell	8	static
+../Core/Src/process.c:105:6:ADC	128	static
+../Core/Src/process.c:128:6:processCommand	80	static
