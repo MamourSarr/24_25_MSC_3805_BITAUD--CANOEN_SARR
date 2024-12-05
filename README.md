@@ -9,7 +9,7 @@ Objectifs principaux
     Acquisition de capteurs : Collecte et traitement des données issues des capteurs.
     Asservissement en temps réel : Implémentation d'un système d'asservissement pour le MCC.
 
-##TP n°1 : Console UART
+## TP n°1 : Console UART
 
 La première étape consiste à développer un shell interactif, communicant via la liaison UART de la carte STM32-G474RE. Ce shell permet de tester et de commander les fonctionnalités du système.
 Fonctionnalités du Shell
