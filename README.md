@@ -22,11 +22,23 @@ Fonctionnalités du Shell
         - stop : Arrête l'étage de puissance du moteur (affichage "Power OFF").
         - Par défaut, une commande non reconnue affiche "Command not found".
 
-## TP n°2 : Commande MCC
+## TP n°2 : Commande MCC basique
+
 
 Nous avons dans cette partie cherché à commander les 2 bars de pont U et V du hacheur en utilisant 4 PWM (complémentaire 2 à 2). Pour ce faire on utilise un timmer pour genérer les 4 pwm sur 4 channels diferents.
-On régle ensuite le prescaller du timer à 8 et Counter period à 1024, afin que le timer fonctionne à 20 kHz, on régle également le "Counter Mode" sur Center Aligned afin de que le timer conte puis déconte.
+On régle ensuite le prescaller du timer à 8 et Counter period à 1024, afin que le timer fonctionne à 20 kHz celon la formule suivante :
+ftimer​ = ftimer_clock​​/((Prescaler+1)×(ARR+1))
+Nous avons également réglé le "Counter Mode" sur Center Aligned afin de que le timer conte puis déconte.
 On régle également le dead time à 200ns afin de ne pas créer d'appel de courant dans les transistor ce qui pourrait les détruire. 
-Nous avons par la suite 
+
+Nous avons par la suite implémenté un fonction speed appelable dans le shell permettant de régler la vitesse du moteur. 
+Cette fonction modifie en fait le rapport cyclique des pwm avec la fonction __HAL_TIM_SET_COMPARE.
+
+## TP n°2 : Commande MCC amélioration
+
+Dans cette partie nous avons cherhcé à améliorer la fonction speed afin de minimiser les appelles de courant dans le moteur quand l'utilisateur cherche à modifier la vitesse du moteur (le probléme étant que en modifiant brutalement les rapport ciclique des pwm celci créer des appels dangereux de courant dans les transistors.
+Pour ce faire nous avons implémenté à l'aide de boucle for une rampe permettant de modifier progressisvement le rapport ciclique des PWM en incrémentant ce rapport cyclique toutes les 10 ms. 
+
+
 
 
