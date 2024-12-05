@@ -30,7 +30,7 @@ Nous réglons ensuite le prescaler du timer à 8 et le Counter Period à 1024, a
 
 f_timer = f_timer_clock / ((Prescaler+1) × (ARR+1))
 
-Nous avons également réglé le "Counter Mode" sur Center Aligned, afin que le timer compte puis décompte.
+- Nous avons également réglé le "Counter Mode" sur Center Aligned, afin que le timer compte puis décompte.
 Nous réglons également le dead time à 200 ns afin d'éviter de créer des appels de courant dans les transistors, ce qui pourrait les endommager.
 
 ### Fonction speed
@@ -53,7 +53,7 @@ Nous nous sommes par la suite attelés à la mesure du courant dans les bras de 
 La fonction de transfert du capteur est la suivante : 
 I_current = (V_adc - V_ofset) / sensitivity 
 
-Pour ce faire, nous avons implémenté une fonction ADC, appelable depuis le shell, afin de mesurer ce courant.
+- Pour ce faire, nous avons implémenté une fonction ADC, appelable depuis le shell, afin de mesurer ce courant.
 Cette mesure s'effectue initialement avec l'ADC en polling. Nous avons ensuite modifié cette fonction pour qu'elle effectue des mesures de courant à intervalles réguliers.
 
-Pour cela, nous déclenchons les mesures au moment où le timer des PWM commence à décompter, car c'est le moment où le courant est le plus stable (instant le plus éloigné des commutations des transistors). Cette mesure est ensuite convertie par l'ADC en une valeur numérique, qui est stockée dans le DMA.
+- Pour cela, nous déclenchons les mesures au moment où le timer des PWM commence à décompter, car c'est le moment où le courant est le plus stable (instant le plus éloigné des commutations des transistors). Cette mesure est ensuite convertie par l'ADC en une valeur numérique, qui est stockée dans le DMA.
