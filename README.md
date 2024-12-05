@@ -51,6 +51,7 @@ Cette fonction modifie en fait le rapport cyclique des PWM à l'aide de la fonct
 
 Nous nous sommes par la suite attelés à la mesure du courant dans les bras de pont du hacheur.
 La fonction de transfert du capteur est la suivante : 
+
 I_current = (V_adc - V_ofset) / sensitivity 
 
 - Pour ce faire, nous avons implémenté une fonction ADC, appelable depuis le shell, afin de mesurer ce courant.
