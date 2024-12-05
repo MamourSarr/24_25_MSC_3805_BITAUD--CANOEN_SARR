@@ -25,7 +25,7 @@ La première étape consiste à développer un shell interactif, communicant via
 
 ### Commande PWM
 
-    Dans cette partie, nous avons cherché à commander les 2 bras de pont U et V du hacheur en utilisant 4 PWM (complémentaires 2 à 2). Pour ce faire, nous utilisons un timer pour générer les 4 PWM sur 4 chanels différents.
+- Dans cette partie, nous avons cherché à commander les 2 bras de pont U et V du hacheur en utilisant 4 PWM (complémentaires 2 à 2). Pour ce faire, nous utilisons un timer pour générer les 4 PWM sur 4 chanels différents.
 Nous réglons ensuite le prescaler du timer à 8 et le Counter Period à 1024, afin que le timer fonctionne à 20 kHz selon la formule suivante :
 
 f_timer = f_timer_clock / ((Prescaler+1) × (ARR+1))
