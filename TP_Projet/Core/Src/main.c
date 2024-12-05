@@ -43,6 +43,8 @@
 #define ASCII_ENTER 0x0D
 #define MAX_SPEED 1024  // Valeur maximale de la vitesse
 #define ADC_BUF_SIZE 8
+#define PULSES_PER_REVOLUTION 1000
+#define SAMPLE_PERIOD 0.01
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -134,6 +136,7 @@ int main(void)
 	//HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 	HAL_ADC_Start_DMA(&hadc1, ADC_buffer, ADC_BUF_SIZE);
 	HAL_TIM_Base_Start(&htim1);
+
 	memset(argv,NULL,MAX_ARGS*sizeof(char*));
 	memset(cmdBuffer,NULL,CMD_BUFFER_SIZE*sizeof(char));
 	memset(uartRxBuffer,NULL,UART_RX_BUFFER_SIZE*sizeof(char));

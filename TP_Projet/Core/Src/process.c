@@ -55,9 +55,9 @@ void HAL_UART_RxCpltCallback (UART_HandleTypeDef * huart){
 }
 
 //void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
-	//if (hadc->Instance == ADC1) {
-		//ADC();
-	//}
+//if (hadc->Instance == ADC1) {
+//ADC();
+//}
 //}
 
 //void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
@@ -101,10 +101,20 @@ void shell(){
 
 }
 
+void speed(){
+
+	float speed_count = __HAL_TIM_GET_COUNTER(&htim3);
+	float motor_speed = speed_count/(735/495);
+	char speed_adc[50];
+	int taille = snprintf(speed_adc, sizeof(speed_adc),"Speed_encoder: %f\r\n,", motor_speed);
+
+	HAL_UART_Transmit(&huart2, (uint8_t*)speed_adc, taille, 100);
+
+}
 
 void ADC(){
 
-	HAL_Delay(1000);
+	HAL_Delay(100);
 	//HAL_ADC_Start(&hadc1);
 
 
@@ -112,10 +122,9 @@ void ADC(){
 	//uint32_t ADC_value = HAL_ADC_GetValue(&hadc1);
 	float ADC_value = ADC_buffer[0];
 	HAL_Delay(10);
-
 	float sensivity = 0.05;  // Sensibilité du capteur en V/A
 	float V_offset = 1.65;
-	float V_adc = (ADC_value * 3.3f / 4096.0f); // Tension mesurée
+	float V_adc = (ADC_value * 3.3f / 4095.0f); // Tension mesurée
 	float I_current = (V_adc - V_offset) / sensivity; // Courant calculé
 
 	char buffer_adc[50];
@@ -198,6 +207,14 @@ void processCommand(char *cmd){
 
 		//if(htim->Instance == TIM1){
 		ADC();
+		//}
+
+	}
+
+	else if (strcmp(cmd, "SPEED") == 0) {
+
+		//if(htim->Instance == TIM1){
+		speed();
 		//}
 
 	}

@@ -1,4 +1,5 @@
 ../Core/Src/process.c:52:6:HAL_UART_RxCpltCallback	1
 ../Core/Src/process.c:69:6:shell	4
-../Core/Src/process.c:105:6:ADC	1
-../Core/Src/process.c:128:6:processCommand	11
+../Core/Src/process.c:104:6:speed	1
+../Core/Src/process.c:115:6:ADC	1
+../Core/Src/process.c:137:6:processCommand	12

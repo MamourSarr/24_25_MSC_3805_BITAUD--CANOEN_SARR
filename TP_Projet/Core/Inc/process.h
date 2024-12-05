@@ -11,5 +11,6 @@
 void processCommand(char *cmd);
 void shell();
 void ADC();
+void speed();
 
 #endif /* INC_PROCESS_H_ */
