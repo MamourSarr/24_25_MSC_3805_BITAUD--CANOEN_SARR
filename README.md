@@ -34,11 +34,14 @@ On régle également le dead time à 200ns afin de ne pas créer d'appel de cour
 Nous avons par la suite implémenté un fonction speed appelable dans le shell permettant de régler la vitesse du moteur. 
 Cette fonction modifie en fait le rapport cyclique des pwm avec la fonction __HAL_TIM_SET_COMPARE.
 
-## TP n°2 : Commande MCC amélioration
+## TP n°3 : Commande en boucle ouverte, mesure de vitesse et de courant
 
-Dans cette partie nous avons cherhcé à améliorer la fonction speed afin de minimiser les appelles de courant dans le moteur quand l'utilisateur cherche à modifier la vitesse du moteur (le probléme étant que en modifiant brutalement les rapport ciclique des pwm celci créer des appels dangereux de courant dans les transistors.
+
+Dans cette partie nous avon commencé par modifier la fonction start afin qu'elle démare les pwm mais à un rapport ciclique de 50% ce qui ne fait pas tourner le moteur.
+Nous avons ensuite cherhcé à améliorer la fonction speed afin de minimiser les appelles de courant dans le moteur quand l'utilisateur cherche à modifier la vitesse du moteur (le probléme étant que en modifiant brutalement les rapport ciclique des pwm celci créer des appels dangereux de courant dans les transistors.
 Pour ce faire nous avons implémenté à l'aide de boucle for une rampe permettant de modifier progressisvement le rapport ciclique des PWM en incrémentant ce rapport cyclique toutes les 10 ms. 
 
-
-
+Nous nous sommes par la suite attelé à la mesure du courant dans les bars de pont du hacheur.
+Pour ce faire nous avons implémenter une fonction ADC appelable deupuis le shell afin de mesurer ce courant.
+Cette mesure s'éffectue avec l'ADC en pooling. Nous avons par la suite modifié cette fonction afin qu'elle effectue des mesures de courant à intervalle de temps régulier. Pour ce faire on vas déclencher les mesures au moment ou le timer des pwm commence à déconter, c'est le moment ou le courant et le plus stable car c'est l'instant le plus éloigné des commutation des transistors. cette mesure est alors convertie par l'ADC en valeur numéérique qui est ensuite stocké dans le DMA.
 
