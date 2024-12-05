@@ -35,12 +35,18 @@ Cette fonction modifie en fait le rapport cyclique des PWM à l'aide de la fonct
 
 ## TP n°3 : Commande en boucle ouverte, mesure de vitesse et de courant
 
+### Amélioration
+
 Dans cette partie, nous avons commencé par modifier la fonction start afin qu'elle démarre les PWM, mais avec un rapport cyclique de 50 %, ce qui ne fait pas tourner le moteur.
 Nous avons ensuite cherché à améliorer la fonction speed afin de minimiser les appels de courant dans le moteur lorsque l'utilisateur modifie la vitesse du moteur (le problème étant qu'une modification brutale du rapport cyclique des PWM crée des appels de courant dangereux dans les transistors).
 
 Pour résoudre ce problème, nous avons implémenté, à l'aide d'une boucle for, une rampe permettant de modifier progressivement le rapport cyclique des PWM en l'incrémentant toutes les 10 ms vers la valeur cible.
 
-Nous nous sommes ensuite attelés à la mesure du courant dans les bras de pont du hacheur.
+### Mesure du courant
+
+Nous nous sommes par la suite attelés à la mesure du courant dans les bras de pont du hacheur.
+La fonction de transfert du capteur est la suivante : 
+I_current = (V_adc - V_ofset)/sensitivity 
 Pour ce faire, nous avons implémenté une fonction ADC, appelable depuis le shell, afin de mesurer ce courant.
 Cette mesure s'effectue initialement avec l'ADC en polling. Nous avons ensuite modifié cette fonction pour qu'elle effectue des mesures de courant à intervalles réguliers.
 
