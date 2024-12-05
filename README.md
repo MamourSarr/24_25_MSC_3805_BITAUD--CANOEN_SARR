@@ -1,6 +1,6 @@
 ## Commande d'un MCC à Hacheur 4 Quadrants
 
-** Ce projet vise à développer une solution complète pour la commande d'un moteur à courant continu (MCC) à l'aide d'un hacheur 4 quadrants. Il couvre plusieurs étapes allant de la mise en place d'une communication UART jusqu'à l'asservissement en temps réel.
+** Ce projet vise à développer une solution complète pour la commande d'un moteur à courant continu (MCC) à l'aide d'un hacheur 4 quadrants. Il couvre plusieurs étapes allant de la mise en place d'une communication UART jusqu'à l'asservissement en temps réel. **
 
 Objectifs principaux
 
