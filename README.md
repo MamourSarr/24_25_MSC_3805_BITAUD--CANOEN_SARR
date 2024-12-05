@@ -2,12 +2,12 @@
 
 Ce projet vise à développer une solution complète pour la commande d'un moteur à courant continu (MCC) à l'aide d'un hacheur 4 quadrants. Il couvre plusieurs étapes allant de la mise en place d'une communication UART jusqu'à l'asservissement en temps réel.
 
--Objectifs principaux
+- Objectifs principaux
 
-    -Shell UART : Réalisation d'un shell pour commander le hacheur.
-    -Commande des transistors : Contrôle des 4 transistors du hacheur en commande complémentaire décalée.
-    -Acquisition de capteurs : Collecte et traitement des données issues des capteurs.
-    -Asservissement en temps réel : Implémentation d'un système d'asservissement pour le MCC.
+    - Shell UART : Réalisation d'un shell pour commander le hacheur.
+    - Commande des transistors : Contrôle des 4 transistors du hacheur en commande complémentaire décalée.
+    - Acquisition de capteurs : Collecte et traitement des données issues des capteurs.
+    - Asservissement en temps réel : Implémentation d'un système d'asservissement pour le MCC.
 
 ## TP n°1 : Console UART
 
