@@ -35,17 +35,17 @@ Nous réglons également le dead time à 200 ns afin d'éviter de créer des app
 
 ### Fonction speed
 
-Par la suite, nous avons implémenté une fonction speed, appelable dans le shell, permettant de régler la vitesse du moteur.
+- Par la suite, nous avons implémenté une fonction speed, appelable dans le shell, permettant de régler la vitesse du moteur.
 Cette fonction modifie en fait le rapport cyclique des PWM à l'aide de la fonction __HAL_TIM_SET_COMPARE.
 
 ## TP n°3 : Commande en boucle ouverte, mesure de vitesse et de courant
 
 ### Amélioration
 
-Dans cette partie, nous avons commencé par modifier la fonction start afin qu'elle démarre les PWM, mais avec un rapport cyclique de 50 %, ce qui ne fait pas tourner le moteur.
-Nous avons ensuite cherché à améliorer la fonction speed afin de minimiser les appels de courant dans le moteur lorsque l'utilisateur modifie la vitesse du moteur (le problème étant qu'une modification brutale du rapport cyclique des PWM crée des appels de courant dangereux dans les transistors).
+- Dans cette partie, nous avons commencé par modifier la fonction start afin qu'elle démarre les PWM, mais avec un rapport cyclique de 50 %, ce qui ne fait pas tourner le moteur.
+- Nous avons ensuite cherché à améliorer la fonction speed afin de minimiser les appels de courant dans le moteur lorsque l'utilisateur modifie la vitesse du moteur (le problème étant qu'une modification brutale du rapport cyclique des PWM crée des appels de courant dangereux dans les transistors).
 
-Pour résoudre ce problème, nous avons implémenté, à l'aide d'une boucle for, une rampe permettant de modifier progressivement le rapport cyclique des PWM en l'incrémentant toutes les 10 ms vers la valeur cible.
+- Pour résoudre ce problème, nous avons implémenté, à l'aide d'une boucle for, une rampe permettant de modifier progressivement le rapport cyclique des PWM en l'incrémentant toutes les 10 ms vers la valeur cible.
 
 ### Mesure du courant
 
