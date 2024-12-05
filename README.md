@@ -14,13 +14,13 @@ Ce projet vise à développer une solution complète pour la commande d'un moteu
 La première étape consiste à développer un shell interactif, communicant via la liaison UART de la carte STM32-G474RE. Ce shell permet de tester et de commander les fonctionnalités du système.
 Fonctionnalités du Shell
 
-    Écho des caractères : Vérifie et renvoie les caractères reçus pour validation.
-    Commandes disponibles :
-        help : Liste toutes les commandes disponibles.
-        pinout : Affiche toutes les broches connectées et leurs fonctions.
-        start : Démarre l'étage de puissance du moteur (affichage "Power ON").
-        stop : Arrête l'étage de puissance du moteur (affichage "Power OFF").
-        Par défaut, une commande non reconnue affiche "Command not found".
+- Écho des caractères : Vérifie et renvoie les caractères reçus pour validation.
+    - Commandes disponibles :
+        - help : Liste toutes les commandes disponibles.
+        - pinout : Affiche toutes les broches connectées et leurs fonctions.
+        - start : Démarre l'étage de puissance du moteur (affichage "Power ON").
+        - stop : Arrête l'étage de puissance du moteur (affichage "Power OFF").
+        - Par défaut, une commande non reconnue affiche "Command not found".
 
 Structure du Projet
 
