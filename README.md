@@ -24,8 +24,6 @@ Fonctionnalités du Shell
 
 Structure du Projet
 
-    Configuration de la communication UART.
-    Mise en place des commandes shell.
-    Contrôle des transistors du hacheur.
-    Acquisition des données capteurs.
-    Boucle d'asservissement en temps réel.
+Nous avons dans cette partie cherché à commander les 2 bars de pont U et V du hacheur en utilisant 4 PWM (complémentaire 2 à 2). Pour ce faire on utilise un timmer pour genérer les 4 pwm sur 4 channels diferents.
+On régle ensuite le prescaller du timer à 8 et Counter period à 1024, afin que le timer fonctionne à 20 kHz, on régle également le "Counter Mode" sur Center Aligned afin de que le timer conte puis déconte.
+On régle également le dead time à 200ns afin de ne pas créer d'appel de courant dans les transistor ce qui pourrait les détruire. 
