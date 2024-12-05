@@ -54,6 +54,8 @@ La fonction de transfert du capteur est la suivante :
 
 I_current = (V_adc - V_ofset) / sensitivity 
 
+(avec V_adc = (ADC_value * 3.3 / 4095.0))
+
 - Pour ce faire, nous avons implémenté une fonction ADC, appelable depuis le shell, afin de mesurer ce courant.
 Cette mesure s'effectue initialement avec l'ADC en polling. Nous avons ensuite modifié cette fonction pour qu'elle effectue des mesures de courant à intervalles réguliers.
 
