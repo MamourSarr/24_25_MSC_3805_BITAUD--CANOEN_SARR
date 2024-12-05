@@ -437,5 +437,3 @@ void processCommand(char *cmd){
 	}
 }
 
-
->>>>>>> be31633655e4eed00320c3f894873bee27532d12
