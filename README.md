@@ -47,6 +47,7 @@ Pour résoudre ce problème, nous avons implémenté, à l'aide d'une boucle for
 Nous nous sommes par la suite attelés à la mesure du courant dans les bras de pont du hacheur.
 La fonction de transfert du capteur est la suivante : 
 I_current = (V_adc - V_ofset)/sensitivity 
+
 Pour ce faire, nous avons implémenté une fonction ADC, appelable depuis le shell, afin de mesurer ce courant.
 Cette mesure s'effectue initialement avec l'ADC en polling. Nous avons ensuite modifié cette fonction pour qu'elle effectue des mesures de courant à intervalles réguliers.
 
