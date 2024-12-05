@@ -25,8 +25,7 @@ La première étape consiste à développer un shell interactif, communicant via
 
 Dans cette partie, nous avons cherché à commander les 2 barres de pont U et V du hacheur en utilisant 4 PWM (complémentaires 2 à 2). Pour ce faire, nous utilisons un timer pour générer les 4 PWM sur 4 canaux différents.
 Nous réglons ensuite le prescaler du timer à 8 et le Counter Period à 1024, afin que le timer fonctionne à 20 kHz selon la formule suivante :
-ftimer=ftimer_clock(Prescaler+1)×(ARR+1)
-ftimer​=(Prescaler+1)×(ARR+1)ftimer_clock​​
+ftimer = ftimer_clock/((Prescaler+1)×(ARR+1))
 
 Nous avons également réglé le "Counter Mode" sur Center Aligned, afin que le timer compte puis décompte.
 Nous réglons également le dead time à 200 ns afin d'éviter de créer des appels de courant dans les transistors, ce qui pourrait les endommager.
