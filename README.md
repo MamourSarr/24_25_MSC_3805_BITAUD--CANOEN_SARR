@@ -23,7 +23,7 @@ La première étape consiste à développer un shell interactif, communicant via
 
 ## TP n°2 : Commande MCC basique
 
-Dans cette partie, nous avons cherché à commander les 2 barres de pont U et V du hacheur en utilisant 4 PWM (complémentaires 2 à 2). Pour ce faire, nous utilisons un timer pour générer les 4 PWM sur 4 canaux différents.
+Dans cette partie, nous avons cherché à commander les 2 bras de pont U et V du hacheur en utilisant 4 PWM (complémentaires 2 à 2). Pour ce faire, nous utilisons un timer pour générer les 4 PWM sur 4 chanels différents.
 Nous réglons ensuite le prescaler du timer à 8 et le Counter Period à 1024, afin que le timer fonctionne à 20 kHz selon la formule suivante :
 ftimer = ftimer_clock/((Prescaler+1)×(ARR+1))
 
@@ -38,9 +38,9 @@ Cette fonction modifie en fait le rapport cyclique des PWM à l'aide de la fonct
 Dans cette partie, nous avons commencé par modifier la fonction start afin qu'elle démarre les PWM, mais avec un rapport cyclique de 50 %, ce qui ne fait pas tourner le moteur.
 Nous avons ensuite cherché à améliorer la fonction speed afin de minimiser les appels de courant dans le moteur lorsque l'utilisateur modifie la vitesse du moteur (le problème étant qu'une modification brutale du rapport cyclique des PWM crée des appels de courant dangereux dans les transistors).
 
-Pour résoudre ce problème, nous avons implémenté, à l'aide d'une boucle for, une rampe permettant de modifier progressivement le rapport cyclique des PWM en l'incrémentant toutes les 10 ms.
+Pour résoudre ce problème, nous avons implémenté, à l'aide d'une boucle for, une rampe permettant de modifier progressivement le rapport cyclique des PWM en l'incrémentant toutes les 10 ms vers la valeur cible.
 
-Nous nous sommes ensuite attelés à la mesure du courant dans les barres de pont du hacheur.
+Nous nous sommes ensuite attelés à la mesure du courant dans les bras de pont du hacheur.
 Pour ce faire, nous avons implémenté une fonction ADC, appelable depuis le shell, afin de mesurer ce courant.
 Cette mesure s'effectue initialement avec l'ADC en polling. Nous avons ensuite modifié cette fonction pour qu'elle effectue des mesures de courant à intervalles réguliers.
 
